@@ -55,25 +55,28 @@ class _TicTacToeState extends State<TicTacToe> {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3),
             itemBuilder: (BuildContext ctx, int index) {
-              return Center(
-                child: Container(
-                  height: 110,
-                  width: 110,
-                  padding: const EdgeInsets.all(5),
-                  decoration: const BoxDecoration(
-                    color: AppColor.jet,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
+              return GestureDetector(
+                onTap: () {
+                  _tapped(index);
+                },
+                child: Center(
+                  child: Container(
+                    height: 110,
+                    width: 110,
+                    padding: const EdgeInsets.all(5),
+                    decoration: const BoxDecoration(
+                      color: AppColor.jet,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
                     ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      index.toString(),
-                      style: TextStyle(
-                        color: (!isXTurn)
-                            ? AppColor.white.withOpacity(0.4)
-                            : AppColor.red.withOpacity(0.6),
-                        fontSize: 70,
+                    child: Center(
+                      child: Text(
+                        gridValue[index],
+                        style: TextStyle(
+                          color: AppColor.white.withOpacity(0.4),
+                          fontSize: 70,
+                        ),
                       ),
                     ),
                   ),
@@ -82,5 +85,17 @@ class _TicTacToeState extends State<TicTacToe> {
             }),
       ),
     );
+  }
+
+  void _tapped(int index) {
+    setState(() {
+      if (isXTurn) {
+        gridValue[index] = 'X';
+        isXTurn = false;
+      } else {
+        gridValue[index] = '0';
+        isXTurn = true;
+      }
+    });
   }
 }
