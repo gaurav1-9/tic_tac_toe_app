@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 
 import './appProperties/app_colors.dart';
 
+enum IsTapped {
+  initialState,
+  xTurn,
+  oTurn,
+}
+
 class TicTacToe extends StatefulWidget {
   const TicTacToe({super.key});
 
@@ -10,7 +16,7 @@ class TicTacToe extends StatefulWidget {
 }
 
 class _TicTacToeState extends State<TicTacToe> {
-  bool isXTurn = true;
+  IsTapped isXTurn = IsTapped.initialState;
   List<String> gridValue = [
     '',
     '',
@@ -22,6 +28,7 @@ class _TicTacToeState extends State<TicTacToe> {
     '',
     '',
   ];
+  int gridFilled = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,13 +96,31 @@ class _TicTacToeState extends State<TicTacToe> {
 
   void _tapped(int index) {
     setState(() {
-      if (isXTurn) {
+      if ((isXTurn == IsTapped.initialState || isXTurn == IsTapped.xTurn) &&
+          gridValue[index].isEmpty) {
         gridValue[index] = 'X';
-        isXTurn = false;
-      } else {
+        isXTurn = IsTapped.oTurn;
+        gridFilled++;
+      }
+      if (isXTurn == IsTapped.oTurn && gridValue[index].isEmpty) {
         gridValue[index] = '0';
-        isXTurn = true;
+        isXTurn = IsTapped.xTurn;
+        gridFilled++;
       }
     });
+    _checkWinner();
+  }
+
+  void _checkWinner() {
+    if (gridFilled == 9) {
+      print("draw");
+      setState(() {
+        for (int i = 0; i < gridFilled; i++) {
+          gridValue[i] = '';
+        }
+        gridFilled = 0;
+        isXTurn = IsTapped.initialState;
+      });
+    }
   }
 }
