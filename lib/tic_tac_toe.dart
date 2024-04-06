@@ -8,6 +8,12 @@ enum IsTapped {
   oTurn,
 }
 
+enum WinnerStatus {
+  noWinner,
+  winner,
+  draw,
+}
+
 class TicTacToe extends StatefulWidget {
   const TicTacToe({super.key});
 
@@ -29,6 +35,8 @@ class _TicTacToeState extends State<TicTacToe> {
     '',
   ];
   int gridFilled = 0;
+  WinnerStatus winnerCondition = WinnerStatus.noWinner;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,14 +120,74 @@ class _TicTacToeState extends State<TicTacToe> {
   }
 
   void _checkWinner() {
+    if (gridValue[0] == gridValue[1] &&
+        gridValue[2] == gridValue[0] &&
+        gridValue[0] != '' &&
+        gridValue[1] != '' &&
+        gridValue[2] != '') {
+      winnerCondition = WinnerStatus.winner;
+    }
+    if (gridValue[3] == gridValue[4] &&
+        gridValue[5] == gridValue[3] &&
+        gridValue[3] != '' &&
+        gridValue[4] != '' &&
+        gridValue[5] != '') {
+      winnerCondition = WinnerStatus.winner;
+    }
+    if (gridValue[6] == gridValue[7] &&
+        gridValue[8] == gridValue[6] &&
+        gridValue[6] != '' &&
+        gridValue[7] != '' &&
+        gridValue[8] != '') {
+      winnerCondition = WinnerStatus.winner;
+    }
+    if (gridValue[0] == gridValue[3] &&
+        gridValue[6] == gridValue[0] &&
+        gridValue[0] != '' &&
+        gridValue[3] != '' &&
+        gridValue[6] != '') {
+      winnerCondition = WinnerStatus.winner;
+    }
+    if (gridValue[1] == gridValue[4] &&
+        gridValue[7] == gridValue[1] &&
+        gridValue[1] != '' &&
+        gridValue[4] != '' &&
+        gridValue[7] != '') {
+      winnerCondition = WinnerStatus.winner;
+    }
+    if (gridValue[2] == gridValue[5] &&
+        gridValue[8] == gridValue[2] &&
+        gridValue[2] != '' &&
+        gridValue[5] != '' &&
+        gridValue[8] != '') {
+      winnerCondition = WinnerStatus.winner;
+    }
+    if (gridValue[0] == gridValue[4] &&
+        gridValue[8] == gridValue[1] &&
+        gridValue[0] != '' &&
+        gridValue[4] != '' &&
+        gridValue[8] != '') {
+      winnerCondition = WinnerStatus.winner;
+    }
+    if (gridValue[2] == gridValue[4] &&
+        gridValue[6] == gridValue[2] &&
+        gridValue[2] != '' &&
+        gridValue[4] != '' &&
+        gridValue[6] != '') {
+      winnerCondition = WinnerStatus.winner;
+    }
     if (gridFilled == 9) {
-      print("draw");
+      winnerCondition = WinnerStatus.draw;
+    }
+    if (winnerCondition == WinnerStatus.draw ||
+        winnerCondition == WinnerStatus.winner) {
       setState(() {
-        for (int i = 0; i < gridFilled; i++) {
+        for (int i = 0; i < gridValue.length; i++) {
           gridValue[i] = '';
         }
         gridFilled = 0;
         isXTurn = IsTapped.initialState;
+        winnerCondition = WinnerStatus.noWinner;
       });
     }
   }
