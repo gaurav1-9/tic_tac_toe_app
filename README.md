@@ -1,4 +1,4 @@
-# Tic Tac Toe App
+# ![appIcon](android\app\src\main\res\mipmap-hdpi\ic_launcher.png) Tic Tac Toe App
 ### Gaurav Kumar Das
 
 ## Screenshots
