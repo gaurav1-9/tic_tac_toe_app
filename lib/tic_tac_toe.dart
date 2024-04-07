@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './appProperties/app_colors.dart';
+import 'widgets/app_master.dart';
 import 'widgets/player_turn.dart';
 
 enum IsTapped {
@@ -36,6 +37,7 @@ class _TicTacToeState extends State<TicTacToe> {
     '',
   ];
   int gridFilled = 0;
+  double visibility = 0.0;
   WinnerStatus winnerCondition = WinnerStatus.noWinner;
 
   @override
@@ -114,10 +116,25 @@ class _TicTacToeState extends State<TicTacToe> {
                     );
                   }),
             ),
+            AppMasterBar(
+              appMasterVisibility: visibility,
+              enableAppMaster: _appMasterBar,
+            )
           ],
         ),
       ),
     );
+  }
+
+  void _appMasterBar() {
+    setState(() {
+      visibility = 0.4;
+    });
+    Future.delayed(const Duration(seconds: 3), () {
+      setState(() {
+        visibility = 0.0;
+      });
+    });
   }
 
   void _tapped(int index) {
