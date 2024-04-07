@@ -76,8 +76,8 @@ class _TicTacToeState extends State<TicTacToe> {
                 },
                 child: Center(
                   child: Container(
-                    height: 110,
-                    width: 110,
+                    height: (MediaQuery.of(context).size.width / 3) - 20,
+                    width: (MediaQuery.of(context).size.width / 3) - 20,
                     padding: const EdgeInsets.all(5),
                     decoration: const BoxDecoration(
                       color: AppColor.jet,
