@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './appProperties/app_colors.dart';
+import 'widgets/player_turn.dart';
 
 enum IsTapped {
   initialState,
@@ -67,6 +68,15 @@ class _TicTacToeState extends State<TicTacToe> {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.03,
+            ),
+            PlayerTurnInfo(
+              playerTurn: isXTurn,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.04,
+            ),
             Expanded(
               child: GridView.builder(
                   itemCount: 9,
